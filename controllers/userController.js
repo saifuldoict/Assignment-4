@@ -23,9 +23,9 @@ const registerUser = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRES_IN * 1000 });
-        res.status(201).json({ message: 'User registered successfully', user });
+      return  res.status(201).json({ message: 'User registered successfully', user });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      return  res.status(500).json({ message: error.message });
     }
 };
 
@@ -42,25 +42,25 @@ const loginUser = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRES_IN * 1000 });
-        res.status(200).json({ message: 'Login successful', user });
+       return res.status(200).json({ message: 'Login successful', user });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+       return res.status(500).json({ message: error.message });
     }
 };
 
 // Get the single user profile
 const getUserProfile = (req, res) => {
     const user = req.user;
-    res.status(200).json({ user });
+   return res.status(200).json({ user });
 };
 
 // Get all users
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
-        res.status(200).json({ users });
+       return res.status(200).json({ users });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      return  res.status(500).json({ message: error.message });
     }
 };
 
@@ -73,9 +73,9 @@ const updateUserProfile = async (req, res) => {
             { firstName, lastName, phoneNumber, bloodGroup },
             { new: true }
         );
-        res.status(200).json({ message: 'Profile updated successfully', user });
+       return res.status(200).json({ message: 'Profile updated successfully', user });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+       return res.status(500).json({ message: error.message });
     }
 };
 
@@ -83,9 +83,9 @@ const updateUserProfile = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         await User.findByIdAndDelete(req.user._id);
-        res.status(200).json({ message: 'User deleted successfully' });
+       return res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+       return res.status(500).json({ message: error.message });
     }
 };
 

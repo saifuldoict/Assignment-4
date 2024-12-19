@@ -19,11 +19,11 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch((err) => console.log(err));
 
 // Routes
-app.post('/api/register', userController.registerUser);
+app.post('/api/registration', userController.registerUser);
 app.post('/api/login', userController.loginUser);
 app.get('/api/profile', protect, userController.getUserProfile);
-app.get('/api/users', protect, userController.getAllUsers);
-app.put('/api/profile', protect, userController.updateUserProfile);
+app.get('/api/AllProfileRead', protect, userController.getAllUsers);
+app.put('/api/profileUpdate', protect, userController.updateUserProfile);
 app.delete('/api/delete', protect, userController.deleteUser);
 
 app.listen(port, () => {
